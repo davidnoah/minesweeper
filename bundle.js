@@ -102,21 +102,17 @@
 
 	    var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 
-	    _this.board = new Minesweeper.Board(9, 10);
+	    _this.state = { board: new Minesweeper.Board(9, 10) };
 	    return _this;
 	  }
 
 	  _createClass(Game, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
+	    key: 'updateGame',
+	    value: function updateGame() {}
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'Hello World'
-	      );
+	      return _react2.default.createElement(Board, { board: this.state.board, updateGame: this.updateGame });
 	    }
 	  }]);
 
