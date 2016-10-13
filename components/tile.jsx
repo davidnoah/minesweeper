@@ -13,7 +13,7 @@ class Tile extends React.Component {
       tileState = count > 0 ? `${count}` : '';
       klass = 'explored';
       if (tile.bombed) {
-        tileState = '\u2622';
+        tileState = '💣';
         klass = 'bombed';
       }
     } else if (tile.flagged) {
