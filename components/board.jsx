@@ -8,8 +8,9 @@ class Board extends React.Component {
 
   renderTiles(row, i) {
     return row.map((tile, j) => {
+      let key = `${i},${j}`;
       return (
-        <Tile className='board-tile' tile={tile} updateGame={this.props.updateGame} key={i + j}/>
+        <Tile className='board-tile' tile={tile} key={key}/>
       );
     });
   }
@@ -24,10 +25,16 @@ class Board extends React.Component {
     });
   }
 
+  handleClick(e) {
+    var pos = e.target.dataset.set;
+    const flagged = e.altKey ? true : false;
+    this.props.updateGame(pos, flagged);
+  }
+
   render() {
     let rows = this.renderRows();
     return (
-      <div className='board-container'>
+      <div className='board-container' onClick={this.handleClick.bind(this)}>
         {rows}
       </div>
     );

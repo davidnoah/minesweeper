@@ -9,8 +9,8 @@ class Game extends React.Component {
     this.updateGame = this.updateGame.bind(this);
   }
 
-  updateGame() {
-
+  updateGame(pos, flagged) {
+    console.log(pos, flagged);
   }
 
   render() {

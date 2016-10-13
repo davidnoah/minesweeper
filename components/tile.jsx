@@ -21,9 +21,9 @@ class Tile extends React.Component {
     } else {
       klass = 'unexplored';
     }
-    klass = 'tile ' + {klass};
+    klass = `tile ${klass}`;
     return (
-      <div className={klass}>{tileState}</div>
+      <div className={klass} data-set={tile.pos}>{tileState}</div>
     );
   }
 }

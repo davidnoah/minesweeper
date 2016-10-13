@@ -113,7 +113,9 @@
 
 	  _createClass(Game, [{
 	    key: 'updateGame',
-	    value: function updateGame() {}
+	    value: function updateGame(pos, flagged) {
+	      console.log(pos, flagged);
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -20022,24 +20024,30 @@
 	  _createClass(Board, [{
 	    key: 'renderTiles',
 	    value: function renderTiles(row, i) {
-	      var _this2 = this;
-
 	      return row.map(function (tile, j) {
-	        return _react2.default.createElement(_tile2.default, { className: 'board-tile', tile: tile, updateGame: _this2.props.updateGame, key: i + j });
+	        var key = i + ',' + j;
+	        return _react2.default.createElement(_tile2.default, { className: 'board-tile', tile: tile, key: key });
 	      });
 	    }
 	  }, {
 	    key: 'renderRows',
 	    value: function renderRows() {
-	      var _this3 = this;
+	      var _this2 = this;
 
 	      return this.props.board.grid.map(function (row, i) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'board-row', key: i },
-	          _this3.renderTiles(row, i)
+	          _this2.renderTiles(row, i)
 	        );
 	      });
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick(e) {
+	      var pos = e.target.dataset.set;
+	      var flagged = e.altKey ? true : false;
+	      this.props.updateGame(pos, flagged);
 	    }
 	  }, {
 	    key: 'render',
@@ -20047,7 +20055,7 @@
 	      var rows = this.renderRows();
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'board-container' },
+	        { className: 'board-container', onClick: this.handleClick.bind(this) },
 	        rows
 	      );
 	    }
@@ -20110,10 +20118,10 @@
 	      } else {
 	        klass = 'unexplored';
 	      }
-	      klass = 'tile ' + { klass: klass };
+	      klass = 'tile ' + klass;
 	      return _react2.default.createElement(
 	        'div',
-	        { className: klass },
+	        { className: klass, 'data-set': tile.pos },
 	        tileState
 	      );
 	    }
