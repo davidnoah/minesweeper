@@ -107,19 +107,26 @@
 	    var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 
 	    _this.state = { board: new Minesweeper.Board(9, 10) };
-	    _this.updateGame = _this.updateGame.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(Game, [{
 	    key: 'updateGame',
 	    value: function updateGame(pos, flagged) {
-	      console.log(pos, flagged);
+	      if (pos) {
+	        pos = pos.split(",");
+	        if (flagged) {
+	          this.state.board.grid[parseInt(pos[0])][parseInt(pos[1])].toggleFlag();
+	        } else {
+	          this.state.board.grid[parseInt(pos[0])][parseInt(pos[1])].explore();
+	        }
+	        this.setState({ board: this.state.board });
+	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_board2.default, { board: this.state.board, updateGame: this.updateGame });
+	      return _react2.default.createElement(_board2.default, { board: this.state.board, updateGame: this.updateGame.bind(this) });
 	    }
 	  }]);
 
@@ -20106,7 +20113,8 @@
 	      var tileState = void 0,
 	          klass = void 0;
 	      if (tile.explored) {
-	        tileState = tile.adjacentBombCount() > 0 ? tile.adjacentBombCount() : '';
+	        var count = tile.adjacentBombCount();
+	        tileState = count > 0 ? '' + count : '';
 	        klass = 'explored';
 	        if (tile.bombed) {
 	          tileState = '\u2622';

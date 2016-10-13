@@ -9,7 +9,8 @@ class Tile extends React.Component {
     const tile = this.props.tile;
     let tileState, klass;
     if (tile.explored) {
-      tileState = tile.adjacentBombCount() > 0 ? tile.adjacentBombCount() : '';
+      let count = tile.adjacentBombCount();
+      tileState = count > 0 ? `${count}` : '';
       klass = 'explored';
       if (tile.bombed) {
         tileState = '\u2622';
