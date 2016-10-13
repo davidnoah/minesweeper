@@ -20096,17 +20096,20 @@
 	    value: function render() {
 	      var tile = this.props.tile;
 	      console.log(tile);
-	      var tileState = 'T';
+	      var tileState = '';
 	      if (tile.explored) {
 	        tileState = tile.adjacentBombCount();
+	        if (tile.flagged) {
+	          tilestate = '\u2691';
+	        } else if (tile.bombed) {
+	          tileState = '\u2622';
+	        }
 	      } else if (tile.flagged) {
-	        tilestate = '&#9873;';
-	      } else if (tile.bombed) {
-	        tileState = '&#128163;';
+	        tileState = '\u2691';
 	      }
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'tile' },
 	        tileState
 	      );
 	    }

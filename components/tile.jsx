@@ -8,16 +8,19 @@ class Tile extends React.Component {
   render() {
     const tile = this.props.tile;
     console.log(tile);
-    let tileState = 'T';
+    let tileState = '';
     if (tile.explored) {
       tileState = tile.adjacentBombCount();
+      if (tile.flagged) {
+        tilestate = '\u2691';
+      } else if (tile.bombed) {
+        tileState = '\u2622';
+      }
     } else if (tile.flagged) {
-      tilestate = '&#9873;';
-    } else if (tile.bombed) {
-      tileState = '&#128163;';
+      tileState = '\u2691';
     }
     return (
-      <div>{tileState}</div>
+      <div className='tile'>{tileState}</div>
     );
   }
 }
