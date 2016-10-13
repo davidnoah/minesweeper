@@ -20095,21 +20095,25 @@
 	    key: 'render',
 	    value: function render() {
 	      var tile = this.props.tile;
-	      console.log(tile);
-	      var tileState = '';
+	      var tileState = void 0,
+	          klass = void 0;
 	      if (tile.explored) {
-	        tileState = tile.adjacentBombCount();
-	        if (tile.flagged) {
-	          tilestate = '\u2691';
-	        } else if (tile.bombed) {
+	        tileState = tile.adjacentBombCount() > 0 ? tile.adjacentBombCount() : '';
+	        klass = 'explored';
+	        if (tile.bombed) {
 	          tileState = '\u2622';
+	          klass = 'bombed';
 	        }
 	      } else if (tile.flagged) {
 	        tileState = '\u2691';
+	        klass = 'flagged';
+	      } else {
+	        klass = 'unexplored';
 	      }
+	      klass = 'tile ' + { klass: klass };
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'tile' },
+	        { className: klass },
 	        tileState
 	      );
 	    }
