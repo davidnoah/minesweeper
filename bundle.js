@@ -20022,20 +20022,22 @@
 	  _createClass(Board, [{
 	    key: 'renderTiles',
 	    value: function renderTiles(row, i) {
+	      var _this2 = this;
+
 	      return row.map(function (tile, j) {
-	        return _react2.default.createElement(_tile2.default, { className: 'board-tile', tile: tile, key: i + j });
+	        return _react2.default.createElement(_tile2.default, { className: 'board-tile', tile: tile, updateGame: _this2.props.updateGame, key: i + j });
 	      });
 	    }
 	  }, {
 	    key: 'renderRows',
 	    value: function renderRows() {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      return this.props.board.grid.map(function (row, i) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'board-row', key: i },
-	          _this2.renderTiles(row, i)
+	          _this3.renderTiles(row, i)
 	        );
 	      });
 	    }
@@ -20083,19 +20085,29 @@
 	var Tile = function (_React$Component) {
 	  _inherits(Tile, _React$Component);
 
-	  function Tile() {
+	  function Tile(props) {
 	    _classCallCheck(this, Tile);
 
-	    return _possibleConstructorReturn(this, (Tile.__proto__ || Object.getPrototypeOf(Tile)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (Tile.__proto__ || Object.getPrototypeOf(Tile)).call(this, props));
 	  }
 
 	  _createClass(Tile, [{
 	    key: 'render',
 	    value: function render() {
+	      var tile = this.props.tile;
+	      console.log(tile);
+	      var tileState = 'T';
+	      if (tile.explored) {
+	        tileState = tile.adjacentBombCount();
+	      } else if (tile.flagged) {
+	        tilestate = '&#9873;';
+	      } else if (tile.bombed) {
+	        tileState = '&#128163;';
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'T'
+	        tileState
 	      );
 	    }
 	  }]);

@@ -9,7 +9,7 @@ class Board extends React.Component {
   renderTiles(row, i) {
     return row.map((tile, j) => {
       return (
-        <Tile className='board-tile' tile={tile} key={i + j}/>
+        <Tile className='board-tile' tile={tile} updateGame={this.props.updateGame} key={i + j}/>
       );
     });
   }
