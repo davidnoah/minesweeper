@@ -107,10 +107,16 @@
 	    var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 
 	    _this.state = { board: new Minesweeper.Board(9, 10) };
+	    _this.restartGame = _this.restartGame.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(Game, [{
+	    key: 'restartGame',
+	    value: function restartGame() {
+	      this.setState({ board: new Minesweeper.Board(9, 10) });
+	    }
+	  }, {
 	    key: 'updateGame',
 	    value: function updateGame(pos, flagged) {
 	      if (pos) {
@@ -126,7 +132,34 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_board2.default, { board: this.state.board, updateGame: this.updateGame.bind(this) });
+	      var modal = void 0;
+	      if (this.state.board.lost() || this.state.board.won()) {
+	        var text = this.state.board.won() ? "You won!" : "You lost!";
+	        modal = _react2.default.createElement(
+	          'div',
+	          { className: 'modal-screen' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-content' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              text
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.restartGame },
+	              'Play Again'
+	            )
+	          )
+	        );
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'game-container' },
+	        modal,
+	        _react2.default.createElement(_board2.default, { board: this.state.board, updateGame: this.updateGame.bind(this) })
+	      );
 	    }
 	  }]);
 
