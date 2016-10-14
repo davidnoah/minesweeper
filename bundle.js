@@ -143,7 +143,7 @@
 	            { className: 'modal-content' },
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              { className: 'modal-text' },
 	              text
 	            ),
 	            _react2.default.createElement(

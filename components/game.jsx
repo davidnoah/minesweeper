@@ -32,7 +32,7 @@ class Game extends React.Component {
       modal =
       <div className='modal-screen'>
         <div className='modal-content'>
-          <p>{text}</p>
+          <p className='modal-text'>{text}</p>
           <button onClick={this.restartGame}>Play Again</button>
         </div>
       </div>;
