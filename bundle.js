@@ -133,8 +133,14 @@
 	    key: 'render',
 	    value: function render() {
 	      var modal = void 0;
+	      var smile = "😃";
 	      if (this.state.board.lost() || this.state.board.won()) {
 	        var text = this.state.board.won() ? "You won!" : "You lost!";
+	        if (text == "You won!") {
+	          smile = "😎";
+	        } else {
+	          smile = "😥";
+	        }
 	        modal = _react2.default.createElement(
 	          'div',
 	          { className: 'modal-screen' },
@@ -157,6 +163,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'game-container' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'face' },
+	          smile
+	        ),
 	        modal,
 	        _react2.default.createElement(_board2.default, { board: this.state.board, updateGame: this.updateGame.bind(this) })
 	      );
