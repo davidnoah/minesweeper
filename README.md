@@ -1,1 +1,1 @@
-![Minesweeper]("./minesweeper_in_action.png")
+![Minesweeper](./minesweeper_in_action.png)
