@@ -26,9 +26,11 @@ class Board extends React.Component {
   }
 
   handleClick(e) {
-    var pos = e.target.dataset.set;
-    const flagged = e.altKey ? true : false;
-    this.props.updateGame(pos, flagged);
+    if (!this.props.disabled) {
+      var pos = e.target.dataset.set;
+      const flagged = e.altKey ? true : false;
+      this.props.updateGame(pos, flagged);
+    }
   }
 
   render() {

@@ -106,15 +106,18 @@
 
 	    var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 
-	    _this.state = { board: new Minesweeper.Board(9, 10) };
+	    _this.state = { board: new Minesweeper.Board(9, 10),
+	      disabled: false };
 	    _this.restartGame = _this.restartGame.bind(_this);
+
 	    return _this;
 	  }
 
 	  _createClass(Game, [{
 	    key: 'restartGame',
 	    value: function restartGame() {
-	      this.setState({ board: new Minesweeper.Board(9, 10) });
+	      this.setState({ board: new Minesweeper.Board(9, 10),
+	        disabled: false });
 	    }
 	  }, {
 	    key: 'updateGame',
@@ -137,10 +140,13 @@
 	      var text = "";
 	      if (this.state.board.lost() || this.state.board.won()) {
 	        text = this.state.board.won() ? "You won!" : "You lost!";
-	        if (text == "You won!") {
+	        if (text === "You won!") {
 	          smile = "😎";
 	        } else {
 	          smile = "😥";
+	        }
+	        if (text === "You lost!") {
+	          this.state.disabled = true;
 	        }
 	      }
 	      return _react2.default.createElement(
@@ -165,7 +171,7 @@
 	            text
 	          )
 	        ),
-	        _react2.default.createElement(_board2.default, { board: this.state.board, updateGame: this.updateGame.bind(this) })
+	        _react2.default.createElement(_board2.default, { board: this.state.board, disabled: this.state.disabled, updateGame: this.updateGame.bind(this) })
 	      );
 	    }
 	  }]);
@@ -19921,9 +19927,11 @@
 	  }, {
 	    key: 'handleClick',
 	    value: function handleClick(e) {
-	      var pos = e.target.dataset.set;
-	      var flagged = e.altKey ? true : false;
-	      this.props.updateGame(pos, flagged);
+	      if (!this.props.disabled) {
+	        var pos = e.target.dataset.set;
+	        var flagged = e.altKey ? true : false;
+	        this.props.updateGame(pos, flagged);
+	      }
 	    }
 	  }, {
 	    key: 'render',

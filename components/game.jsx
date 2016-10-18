@@ -5,12 +5,15 @@ import * as Minesweeper from '../minesweeper';
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {board: new Minesweeper.Board(9, 10)};
+    this.state = {board: new Minesweeper.Board(9, 10),
+                  disabled: false};
     this.restartGame = this.restartGame.bind(this);
+
   }
 
   restartGame() {
-    this.setState({board: new Minesweeper.Board(9, 10)});
+    this.setState({board: new Minesweeper.Board(9, 10),
+                    disabled: false});
   }
 
   updateGame(pos, flagged) {
@@ -31,10 +34,13 @@ class Game extends React.Component {
     let text = "";
     if (this.state.board.lost() || this.state.board.won()) {
       text = this.state.board.won() ? "You won!" : "You lost!";
-      if (text == "You won!") {
+      if (text === "You won!") {
         smile = "😎";
       } else {
         smile = "😥";
+      }
+      if (text === "You lost!") {
+        this.state.disabled = true;
       }
     }
     return (
@@ -44,7 +50,7 @@ class Game extends React.Component {
           <div className='face'>{smile}</div>
           <div className='status'>{text}</div>
         </div>
-        <Board board={this.state.board} updateGame={this.updateGame.bind(this)} />
+        <Board board={this.state.board} disabled={this.state.disabled} updateGame={this.updateGame.bind(this)} />
       </div>
     );
   }
