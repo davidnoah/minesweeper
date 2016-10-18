@@ -28,25 +28,22 @@ class Game extends React.Component {
   render() {
     let modal;
     let smile = "😃";
+    let text = "";
     if (this.state.board.lost() || this.state.board.won()) {
-      const text = this.state.board.won() ? "You won!" : "You lost!";
+      text = this.state.board.won() ? "You won!" : "You lost!";
       if (text == "You won!") {
         smile = "😎";
       } else {
         smile = "😥";
       }
-      modal =
-      <div className='modal-screen'>
-        <div className='modal-content'>
-          <p className='modal-text'>{text}</p>
-          <button onClick={this.restartGame}>Play Again</button>
-        </div>
-      </div>;
-     }
+    }
     return (
       <div className='game-container'>
-        <div className='face'>{smile}</div>
-        {modal}
+        <div className='face-container' onClick={this.restartGame}>
+          <div className='status'>{text}</div>
+          <div className='face'>{smile}</div>
+          <div className='status'>{text}</div>
+        </div>
         <Board board={this.state.board} updateGame={this.updateGame.bind(this)} />
       </div>
     );
