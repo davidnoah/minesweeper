@@ -1,5 +1,4 @@
-### Live Link!
-[Minesweeper!](http://davidnoah.me/minesweeper/)
+Live link: [Minesweeper!](http://davidnoah.me/minesweeper/)
 
 
 
